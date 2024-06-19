@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Docker build
-    runs-on: linux-latest
+    runs-on: windows-latest
     steps:
     - name: Check out the repo
       uses: actions/checkout@v3 
@@ -18,7 +18,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build website image
       run: | 
-        docker build --platform linux --tag angeldavidchable/user-crud:latest -f src/Dockerfile .
+        docker build --platform windows --tag angeldavidchable/user-crud:latest -f src/Dockerfile .
     - name: Publish website image
       run: |
         docker push angeldavidchable/user-crud:latest

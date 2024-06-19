@@ -1,0 +1,24 @@
+name: Docker image CI
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'src/**'
+jobs:
+  build:
+    name: Docker build
+    runs-on: windows-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3 
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_ANGELDAVIDCHABLE }}
+        password: ${{ secrets.DOCKERHUb_TOKEN }}
+    - name: Build website image
+      run: | 
+        docker build --platform windows --tag angeldavidchable/user-crud:latest -f src/Dockerfile .
+    - name: Publish website image
+      run: |
+        docker push angeldavidchable/user-crud:latest
